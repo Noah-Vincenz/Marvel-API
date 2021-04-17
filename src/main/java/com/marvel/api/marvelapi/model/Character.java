@@ -3,7 +3,7 @@ package com.marvel.api.marvelapi.model;
 import java.util.List;
 
 public class Character {
-    public String id;
+    public Integer id;
     public String name;
     public String description;
     public String modified;
