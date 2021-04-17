@@ -1,6 +1,5 @@
 package com.marvel.api.marvelapi.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.marvel.api.marvelapi.model.Character;
 import com.marvel.api.marvelapi.model.Data;
@@ -9,7 +8,6 @@ import com.marvel.api.marvelapi.model.ShortCharacter;
 import com.marvel.api.marvelapi.persistence.entity.CharacterIdEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;

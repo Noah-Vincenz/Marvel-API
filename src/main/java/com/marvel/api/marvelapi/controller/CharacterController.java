@@ -1,14 +1,13 @@
 package com.marvel.api.marvelapi.controller;
 
 import com.marvel.api.marvelapi.model.ShortCharacter;
-import com.marvel.api.marvelapi.persistence.repository.CharacterIdRepository;
+import com.marvel.api.marvelapi.service.CharacterIdService;
 import com.marvel.api.marvelapi.service.MarvelApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -17,7 +16,7 @@ import java.util.List;
 public class CharacterController {
 
     @Autowired
-    private CharacterIdRepository repository;
+    private CharacterIdService characterIdService;
 
     @Autowired
     private MarvelApiService marvelApiService;
@@ -29,11 +28,11 @@ public class CharacterController {
      */
     @GetMapping("/characters")
     public List<Integer> getAllCharacterIds() {
-        List<Integer> ids = repository.getAllIds();
+        List<Integer> ids = characterIdService.getAllIds();
         if (ids.isEmpty()) {
             throw new ResourceNotFoundException("Please wait for all the character IDs to be loaded to the database.");
         }
-        return repository.getAllIds();
+        return ids;
     }
 
     /**

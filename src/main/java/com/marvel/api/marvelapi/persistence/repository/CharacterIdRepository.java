@@ -9,5 +9,5 @@ import java.util.List;
 public interface CharacterIdRepository extends JpaRepository<CharacterIdEntity, Integer> {
 
     @Query("select c.id from CharacterIdEntity c")
-    public List<Integer> getAllIds();
+    public List<Integer> getIds();
 }
