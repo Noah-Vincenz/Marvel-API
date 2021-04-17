@@ -6,13 +6,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="IDS")
+@Table(name="CHARACTER_IDS")
 public class CharacterIdEntity {
     @Id
     @Column(name = "ID")
-    private final int id;
+    private int id;
 
-    public CharacterIdEntity(int id) {
+    public CharacterIdEntity setId(int id) {
         this.id = id;
+        return this;
     }
 }
