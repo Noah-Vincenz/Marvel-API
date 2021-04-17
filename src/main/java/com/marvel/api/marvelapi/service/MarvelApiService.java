@@ -26,6 +26,7 @@ public class MarvelApiService {
     @Value("${marvel.api.publicKey}")
     private String publicKey;
     private final int LIMIT = 100;
+    private final int TIMESTAMP = 1;
     private HttpClient client;
     private ObjectMapper mapper;
 
@@ -38,23 +39,27 @@ public class MarvelApiService {
         List<CharacterIdEntity> entityList = new ArrayList<>();
         int offset = 0;
         int total = 1;
+        String leadingStr = baseURL +
+                "/v1/public/characters?limit=" +
+                LIMIT +
+                "&offset=";
+        String trailingStr = "&ts=" +
+                TIMESTAMP +
+                "&apikey=" +
+                publicKey +
+                "&hash=" +
+                hash;
+
         while (offset < total) {
-            String url = baseURL +
-                    "/v1/public/characters?limit=" +
-                    LIMIT +
-                    "&offset=" +
-                    offset +
-                    "&ts=1&apikey=" +
-                    publicKey +
-                    "&hash=" +
-                    hash;
+            String url = leadingStr + offset + trailingStr;
+
             HttpRequest request = HttpRequest.newBuilder(URI.create(url))
                     .header("accept", "application/json")
                     .build();
             HttpResponse<String> stringResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
             Response response = mapper.readValue(stringResponse.body(), Response.class);
             Data data = response.data;
-            response.data.results
+            data.results
                     .stream().map(c -> c.id)
                     .forEach(id -> entityList.add(new CharacterIdEntity().setId(id)));
             offset += data.count;
@@ -67,10 +72,13 @@ public class MarvelApiService {
         String url = baseURL +
                 "/v1/public/characters/" +
                 id +
-                "?ts=1&apikey=" +
+                "?ts=" +
+                TIMESTAMP +
+                "&apikey=" +
                 publicKey +
                 "&hash=" +
                 hash;
+
         HttpRequest request = HttpRequest.newBuilder(URI.create(url))
                 .header("accept", "application/json")
                 .build();
@@ -79,7 +87,6 @@ public class MarvelApiService {
         if (response.data == null) {
             return null;
         }
-        Character character = response.data.results.get(0);
-        return new ShortCharacter(character);
+        return new ShortCharacter(response.data.results.get(0));
     }
 }

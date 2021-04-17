@@ -41,7 +41,7 @@ public class CharacterController {
      * @return the character with the given id.
      */
     @GetMapping("/characters/{id}")
-    public ShortCharacter getCharacter(@PathVariable("id") Integer id) throws IOException, InterruptedException {
+    public ShortCharacter getCharacterById(@PathVariable("id") Integer id) throws IOException, InterruptedException {
         ShortCharacter shortCharacter = marvelApiService.getCharacter(id);
         if (shortCharacter == null) {
             throw new ResourceNotFoundException("Could not find any character that matches the given id: " + id + ".");
