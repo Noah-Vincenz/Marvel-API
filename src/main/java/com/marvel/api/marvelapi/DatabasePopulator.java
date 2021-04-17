@@ -47,6 +47,9 @@ class DatabasePopulator implements CommandLineRunner {
             HttpResponse<String> stringResponse = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
             Response response = new ObjectMapper().readValue(stringResponse.body(), Response.class);
             Data data = response.data;
+            response.data.results
+                    .stream().map(c -> c.id)
+                    .forEach(logger::info);
             offset += data.count;
             total = data.total;
         }
