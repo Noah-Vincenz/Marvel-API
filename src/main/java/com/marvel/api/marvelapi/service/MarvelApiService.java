@@ -28,7 +28,7 @@ public class MarvelApiService {
     public String hash;
     @Value("${marvel.api.publicKey}")
     public String publicKey;
-    public final int LIMIT = 100; // 100 results is max
+    private final int LIMIT = 100; // 100 results is max
     private final int TIMESTAMP = 1;
     public HttpClient client = HttpClient.newHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
