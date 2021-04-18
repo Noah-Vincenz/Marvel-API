@@ -25,7 +25,7 @@ public class CharacterIdService {
     }
 
     /**
-     * Ge all character IDs stored in the DB.
+     * Get all character IDs stored in the DB.
      * @return a list of all the IDs stored in the DB.
      */
     public List<Integer> getAllIds() {

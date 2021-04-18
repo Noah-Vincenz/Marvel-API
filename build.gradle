@@ -23,8 +23,10 @@ dependencies {
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
 	implementation 'com.fasterxml.jackson.core:jackson-core:2.12.3'
 	implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.3'
+	implementation 'junit:junit:4.12'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.1'
 }
 
 test {

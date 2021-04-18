@@ -12,6 +12,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,20 +23,15 @@ import java.util.List;
 public class MarvelApiService {
 
     @Value("${marvel.api.baseURL}")
-    private String baseURL;
+    public String baseURL;
     @Value("${marvel.api.hash}")
-    private String hash;
+    public String hash;
     @Value("${marvel.api.publicKey}")
-    private String publicKey;
-    private final int LIMIT = 100; // 100 results is max
+    public String publicKey;
+    public final int LIMIT = 100; // 100 results is max
     private final int TIMESTAMP = 1;
-    private final HttpClient client;
-    private final ObjectMapper mapper;
-
-    public MarvelApiService() {
-        client = HttpClient.newHttpClient();
-        mapper = new ObjectMapper();
-    }
+    public HttpClient client = HttpClient.newHttpClient();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     /**
      * Get all character ids from the API and return a list of created CharacterIdEntities.
@@ -63,12 +59,8 @@ public class MarvelApiService {
                 hash;
 
         while (offset < total) {
-            String url = leadingStr + offset + trailingStr;
-
-            HttpRequest request = HttpRequest.newBuilder(URI.create(url))
-                    .header("accept", "application/json")
-                    .build();
-            HttpResponse<String> stringResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
+            String uri = leadingStr + offset + trailingStr;
+            HttpResponse<String> stringResponse = client.send(buildRequest(uri), BodyHandlers.ofString());
             // use Jackson to map the response body String to our custom Response object
             Response response = mapper.readValue(stringResponse.body(), Response.class);
             Data data = response.data;
@@ -91,7 +83,7 @@ public class MarvelApiService {
      * @throws InterruptedException when the thread is interrupted during the API request.
      */
     public ShortCharacter getCharacter(Integer id) throws IOException, InterruptedException {
-        final String url = baseURL +
+        final String uri = baseURL +
                 "/v1/public/characters/" +
                 id +
                 "?ts=" +
@@ -101,10 +93,7 @@ public class MarvelApiService {
                 "&hash=" +
                 hash;
 
-        HttpRequest request = HttpRequest.newBuilder(URI.create(url))
-                .header("accept", "application/json")
-                .build();
-        HttpResponse<String> stringResponse = client.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<String> stringResponse = client.send(buildRequest(uri), BodyHandlers.ofString());
         // use Jackson to map the response body String to our custom Response object
         Response response = mapper.readValue(stringResponse.body(), Response.class);
         // return null and do not throw a NullPointerException
@@ -112,5 +101,16 @@ public class MarvelApiService {
             return null;
         }
         return new ShortCharacter(response.data.results.get(0));
+    }
+
+    /**
+     * Build a request from the given uri.
+     * @param uri The URI used for this request.
+     * @return The created HttpRequest object.
+     */
+    public HttpRequest buildRequest(String uri) {
+        return HttpRequest.newBuilder(URI.create(uri))
+                .header("accept", "application/json")
+                .build();
     }
 }
