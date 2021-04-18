@@ -32,6 +32,6 @@ $ ./gradlew run
 When running the application server, you can open up any browser and access
 [http://localhost:8080/api/v1/characters](http://localhost:8080/api/v1/characters). Once the application has loaded
 all the characters from the exernal Marvel API, you should be able to see a list of all the character IDs in this window.
-You can also access [http://localhost:8080/api/v1/characters/<someid>](http://localhost:8080/api/v1/characters/<someid>), and replace
+You can also access [http://localhost:8080/api/v1/characters/someid](http://localhost:8080/api/v1/characters/someid), and replace
 *someid* with one of the IDs taken from the previous window. This will show you some details about the character.
 
