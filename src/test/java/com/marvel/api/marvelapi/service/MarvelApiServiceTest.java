@@ -22,8 +22,8 @@ public class MarvelApiServiceTest {
 
     @InjectMocks
     private MarvelApiService service;
-    private HttpClient httpClient = mock(HttpClient.class);
-    private HttpResponse httpResponse = mock(HttpResponse.class);
+    private final HttpClient httpClient = mock(HttpClient.class);
+    private final HttpResponse httpResponse = mock(HttpResponse.class);
 
     @BeforeEach
     public void setup() {

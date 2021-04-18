@@ -108,7 +108,7 @@ public class MarvelApiService {
      * @param uri The URI used for this request.
      * @return The created HttpRequest object.
      */
-    public HttpRequest buildRequest(String uri) {
+    private HttpRequest buildRequest(String uri) {
         return HttpRequest.newBuilder(URI.create(uri))
                 .header("accept", "application/json")
                 .build();
