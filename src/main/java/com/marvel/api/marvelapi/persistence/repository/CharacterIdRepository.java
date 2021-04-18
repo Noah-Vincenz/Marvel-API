@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface CharacterIdRepository extends JpaRepository<CharacterIdEntity, Integer> {
 
+    /**
+     * Get all the IDs stored in the DB.
+     * @return a list of all the IDs stored in the DB.
+     */
     @Query("select c.id from CharacterIdEntity c")
     List<Integer> getIds();
 }

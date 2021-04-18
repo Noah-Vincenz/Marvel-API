@@ -11,6 +11,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
+/**
+ * This class is used to populate our H2 DB with character IDs on application startup.
+ */
 @Component
 class DatabasePopulator implements CommandLineRunner {
     @Value("${marvel.api.baseURL}")

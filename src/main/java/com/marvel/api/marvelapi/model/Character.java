@@ -2,6 +2,10 @@ package com.marvel.api.marvelapi.model;
 
 import java.util.List;
 
+/**
+ * This POJO class represents a Character object from the Marvel API (see https://developer.marvel.com/docs),
+ * maintaining all the character's attributes.
+ */
 public class Character {
     public Integer id;
     public String name;

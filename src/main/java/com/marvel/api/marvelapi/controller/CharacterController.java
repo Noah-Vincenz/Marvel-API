@@ -22,9 +22,10 @@ public class CharacterController {
     private MarvelApiService marvelApiService;
 
     /**
-     * Get all character ids.
+     * Get all character IDs.
      *
-     * @return the list of character ids.
+     * @return the JSON array of all the character IDs.
+     * @throws ResourceNotFoundException when the IDs have not been fully loaded to the DB.
      */
     @GetMapping("/characters")
     public List<Integer> getAllCharacterIds() {
@@ -36,9 +37,11 @@ public class CharacterController {
     }
 
     /**
-     * Get a specific character by id.
+     * Get a specific character by ID.
      *
-     * @return the character with the given id.
+     * @param id the ID of the character to be retrieved - id, name, description, thumbnail.
+     * @return the character with the given ID (id, name, description, thumbnail)
+     * @throws ResourceNotFoundException when no character could be found that matches the given ID.
      */
     @GetMapping("/characters/{id}")
     public ShortCharacter getCharacterById(@PathVariable("id") Integer id) throws IOException, InterruptedException {
