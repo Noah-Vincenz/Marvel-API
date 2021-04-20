@@ -35,9 +35,9 @@ public class MarvelApiServiceTest {
 
     @Test
     public void testGetAllCharacterIds() throws IOException, InterruptedException {
-        // Setting count to 3, limit to 3, and total to 10
+        // Setting count to 3, limit to 3, and total to 12
         // Therefore, there will be 4 loop iterations and 4 requests
-        String testResponseWithCharacter = "{\"code\":200,\"status\":\"Ok\",\"copyright\":\"\",\"attributionText\":\"\",\"attributionHTML\":\"\",\"etag\":\"\",\"data\":{\"offset\":0,\"limit\":3,\"total\":10,\"count\":3,\"results\":[{\"id\":1011334,\"name\":\"3-D Man\",\"description\":\"\",\"modified\":\"\",\"thumbnail\":{}}]}}";
+        String testResponseWithCharacter = "{\"code\":200,\"status\":\"Ok\",\"copyright\":\"\",\"attributionText\":\"\",\"attributionHTML\":\"\",\"etag\":\"\",\"data\":{\"offset\":0,\"limit\":3,\"total\":10,\"count\":3,\"results\":[{\"id\":1011334,\"name\":\"3-D Man\",\"description\":\"\",\"modified\":\"\",\"thumbnail\":{}},{\"id\":1011335,\"name\":\"Batman\",\"description\":\"\",\"modified\":\"\",\"thumbnail\":{}},{\"id\":1011336,\"name\":\"Superman\",\"description\":\"\",\"modified\":\"\",\"thumbnail\":{}}]}}";
 
         Mockito
                 .when(httpClient.send(any(HttpRequest.class), eq(HttpResponse.BodyHandlers.ofString())))
@@ -47,7 +47,7 @@ public class MarvelApiServiceTest {
                 .thenReturn(testResponseWithCharacter);
 
         List<CharacterIdEntity> entitiesReturned = service.getAllCharacterIds();
-        Assertions.assertEquals(4, entitiesReturned.size());
+        Assertions.assertEquals(12, entitiesReturned.size());
         Mockito.verify(service.client, Mockito.times(4)).send(any(), any());
     }
 
