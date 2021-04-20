@@ -8,7 +8,7 @@ Once this repository has been cloned onto your local machine, open a new termina
 ```bash
 $ open ~/.bash_profile
 ```
-This will open your bash profile, which we will use to keep your local environment variables. Add the following export statements to your *~/.bash_profile*
+This will open your bash profile (or *.bashrc*), which we will use to keep your local environment variables. Add the following export statements to your *~/.bash_profile* (or *.bashrc*)
 ```aidl
 export MARVEL_API_PUBLIC_KEY=publicKey
 export MARVEL_API_HASH=hash
@@ -17,18 +17,28 @@ where *publicKey* is the API public key retrieved in the previous step,
 and *hash* is the MD5 hash generated from concatenating 1, your API private key, and your API public key.
 For instance, if your private key is 123 and your public key is abc then this will be the MD5 hash generated from 1123abc.
 You can generate this hash [here](https://cryptii.com/pipes/md5-hash).
-Following this, in order for these changes to take effect, you can close the editor of your *~/.bash_profile* and run the following command
+Following this, in order for these changes to take effect, you can close the editor of your *~/.bash_profile* (or *.bashrc*) and run the following command
 ```bash
 $ source ~/.bash_profile
 ```
-You can then either run the tests of the project via running
+You can then build the project via running
 ```bash
-$ ./gradlew test
+$ ./gradlew build
 ```
-... or you can run the application server via running
+
+## Run with gradle
+You can then run the application server via running
 ```bash
 $ ./gradlew run
 ```
+
+## Run with Docker
+You can then run the application server via running
+```bash
+$ docker-compose up -d
+```
+
+## Access the endpoints
 When running the application server, you can open up any browser and access
 [http://localhost:8080/api/v1/characters](http://localhost:8080/api/v1/characters). Once the application has loaded
 all the characters from the exernal Marvel API, you should be able to see a list of all the character IDs in this window.
